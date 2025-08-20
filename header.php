@@ -55,6 +55,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/job-portal2/employer/applicants.php">View Applicants</a>
                         </li>
+
+                        <label class="dark-mode-toggle">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="darkModeToggle">
+                                <span class="slider"></span>
+                            </div>
+                            <span class="toggle-text">Dark Mode</span>
+                        </label>
+
+                        
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="/employer/manage_jobs.php">Manage Jobs</a>
                         </li>

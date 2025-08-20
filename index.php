@@ -53,6 +53,10 @@ $featured_jobs = mysqli_fetch_all($featured_result, MYSQLI_ASSOC);
         </div>
     </div>
 
+    <div>
+
+
+
     <div class="row mb-5">
         <div class="col-12">
             <h2 class="text-center mb-4">Featured Jobs</h2>
@@ -146,6 +150,34 @@ $featured_jobs = mysqli_fetch_all($featured_result, MYSQLI_ASSOC);
 ?>
 <style>
   /* Chat widget styles */
+
+  
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --heading-color: #222222;
+    --card-bg: #f5f5f5;
+    --border-color: #dddddd;
+  }
+
+  .dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --heading-color: #eeeeee;
+    --card-bg: #1e1e1e;
+    --border-color: #333333;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+  }
+
   .chat-toggle {
     position: fixed;
     right: 20px;
