@@ -90,7 +90,7 @@ $result = mysqli_query($conn, $sql);
                 <div class="col-md-6 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($job['title']) ?></h5>
+                            <h5 class=body.dark-mode"><?= htmlspecialchars($job['title']) ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted">
                                 <?= htmlspecialchars($job['company_name']) ?> • <?= htmlspecialchars($job['location']) ?>
                             </h6>

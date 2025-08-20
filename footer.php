@@ -1,6 +1,6 @@
         </div> <!-- Close container from header -->
     <footer class="bg-dark text-white py-5 mt-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
                     <h5>Portfolio+</h5>
@@ -43,36 +43,30 @@
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const toggle = document.getElementById('darkModeToggle');
-    const toggleText = document.querySelector('.toggle-text');
-    
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    // Apply saved theme if exists
-    if (savedTheme === 'dark') {
-      document.body.classList.add('dark-mode');
-      toggle.checked = true;
-      toggleText.textContent = 'Light Mode';
-    } else {
-      toggleText.textContent = 'Dark Mode';
-    }
-    
-    // Toggle theme when switch is clicked
-    toggle.addEventListener('change', function() {
-      if (this.checked) {
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark');
-        toggleText.textContent = 'Light Mode';
-      } else {
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('theme', 'light');
-        toggleText.textContent = 'Dark Mode';
-      }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        // Check saved dark mode
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+
+        // Toggle dark mode
+        darkModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.removeItem('darkMode'); // ✅ FIXED
+            }
+        });
     });
-  });
 </script>
+
 
 
 

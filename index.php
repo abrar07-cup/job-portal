@@ -13,6 +13,18 @@ $featured_jobs = mysqli_fetch_all($featured_result, MYSQLI_ASSOC);
 
 ?>
 
+<style>
+
+  .card{
+     border: 1.5px solid #a09186;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    transition: transform .12s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+</style>
+
+
 <div class="hero-section">
     <div class="container text-center">
         <h1 class="display-4 fw-bold">Find Your Dream Job</h1>
@@ -28,23 +40,23 @@ $featured_jobs = mysqli_fetch_all($featured_result, MYSQLI_ASSOC);
     </div>
 </div>
 
-<div class="container">
+<div class="container mt-2 shadow-sm ">
     <div class="row mb-5">
-        <div class="col-md-4 text-center">
+        <div class="card col-md-3 text-center mx-5 px-2">
             <div class="feature-icon">
                 <i class="bi bi-search"></i>
             </div>
             <h3>Find Jobs</h3>
             <p>Browse through hundreds of job listings from top companies in your field.</p>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="card col-md-3 text-center mx-5 px-2">
             <div class="feature-icon">
                 <i class="bi bi-file-earmark-text"></i>
             </div>
             <h3>Build Your CV</h3>
             <p>Create a professional resume with our easy-to-use resume builder tool.</p>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="card col-md-3 text-center mx-5 px-2">
             <div class="feature-icon">
                 <i class="bi bi-briefcase"></i>
             </div>
@@ -62,16 +74,16 @@ $featured_jobs = mysqli_fetch_all($featured_result, MYSQLI_ASSOC);
             <h2 class="text-center mb-4">Featured Jobs</h2>
             <div class="row">
                 <?php foreach ($featured_jobs as $job): ?>
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-6 mb-4 text-center">
                         <div class="card h-100 card-hover">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($job['title']) ?></h5>
-                                <h6 class="card-subtitle mb-2 text-muted"><?= htmlspecialchars($job['company_name']) ?></h6>
-                                <p class="card-text"><?= substr(htmlspecialchars($job['description']), 0, 100) ?>...</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="badge bg-primary"><?= ucfirst(str_replace('-', ' ', $job['type'])) ?></span>
-                                    <a href="/job-portal2/employee/view_job.php?id=<?= $job['id'] ?>" class="btn btn-sm btn-outline-primary">View Details</a>
-                                </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-center"><?= htmlspecialchars($job['title']) ?></h5>
+                                <h6 class="card-subtitle mb-2 text-muted text-center"><?= htmlspecialchars($job['company_name']) ?></h6>
+                                <p class="card-text text-center"><?= substr(htmlspecialchars($job['description']), 0, 100) ?>...</p>
+                                <div class="d-flex justify-content-center align-items-center gap-3">
+  <span class="badge bg-primary"><?= ucfirst(str_replace('-', ' ', $job['type'])) ?></span>
+  <a href="/job-portal2/employee/view_job.php?id=<?= $job['id'] ?>" class="btn btn-sm btn-outline-primary">View Details</a>
+</div>
                             </div>
                         </div>
                     </div>
@@ -147,258 +159,342 @@ $featured_jobs = mysqli_fetch_all($featured_result, MYSQLI_ASSOC);
 
 <?php include 'footer.php'; ?>
 
-?>
+
 <style>
-  /* Chat widget styles */
 
-  
-  :root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --heading-color: #222222;
-    --card-bg: #f5f5f5;
-    --border-color: #dddddd;
-  }
+  /* -------------------------
+  Global Theme Variables
+------------------------- */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --heading-color: #222222;
+  --card-bg: #f5f5f5;
+  --border-color: #dddddd;
+}
 
-  .dark-mode {
-    --bg-color: #121212;
-    --text-color: #ffffff;
-    --heading-color: #eeeeee;
-    --card-bg: #1e1e1e;
-    --border-color: #333333;
-  }
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --heading-color: #eeeeee;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
 
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-  }
+/* -------------------------
+   Global Elements
+------------------------- */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
 
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--heading-color);
-  }
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+}
 
-  .chat-toggle {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg,#4f8cff,#0056b3);
-    color: white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow: 0 10px 30px rgba(79,140,255,0.25);
-    cursor: pointer;
-    z-index: 9999;
-    border: none;
-  }
-  .chat-panel {
-    position: fixed;
-    right: 20px;
-    bottom: 90px;
-    width: 360px;
-    max-height: 68vh;
-    background: rgba(255,255,255,0.98);
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    z-index: 9999;
-    transform: translateY(10px);
-    transition: transform .18s ease, opacity .18s ease;
-  }
-  body.dark .chat-panel { background: rgba(20,22,26,0.96); color: #eaeef8; }
-  .chat-header {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:12px 14px; border-bottom:1px solid rgba(0,0,0,0.06);
-    background: linear-gradient(90deg, rgba(79,140,255,0.06), transparent);
-  }
-  body.dark .chat-header { border-bottom:1px solid rgba(255,255,255,0.03); }
-  .chat-header h4 { margin:0; font-family: 'Poppins', sans-serif; color:#154bff; font-size:15px; }
-  body.dark .chat-header h4 { color: #79aefc; }
-  .chat-header .close-btn { background:transparent; border:none; cursor:pointer; font-size:16px; }
-  .chat-body { padding:12px; overflow:auto; flex:1; display:flex; flex-direction:column; gap:8px; }
-  .msg { max-width: 80%; padding:10px 12px; border-radius:10px; font-size:14px; line-height:1.45; }
-  .msg.user { align-self: flex-end; background: linear-gradient(135deg,#e9f0ff,#cfe0ff); color:#04204a; border-bottom-right-radius:4px; }
-  body.dark .msg.user { background: linear-gradient(135deg,#2b3442,#232831); color:#dfe9ff; }
-  .msg.bot { align-self:flex-start; background: #f6f8fb; color:#222; border-bottom-left-radius:4px; }
-  body.dark .msg.bot { background: rgba(255,255,255,0.03); color:#dbe8ff; }
-  .chat-suggestions { display:flex; gap:8px; flex-wrap:wrap; padding:8px 12px; border-top:1px dashed rgba(0,0,0,0.04); }
-  body.dark .chat-suggestions { border-top:1px dashed rgba(255,255,255,0.02); }
-  .chip { background: rgba(0,0,0,0.06); padding:6px 10px; border-radius:999px; font-size:13px; cursor:pointer; }
-  body.dark .chip { background: rgba(255,255,255,0.04); }
-  .chat-input-area { display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,0,0,0.04); }
-  body.dark .chat-input-area { border-top:1px solid rgba(255,255,255,0.03); }
-  .chat-input { flex:1; padding:10px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:transparent; font-size:14px; }
-  body.dark .chat-input { border:1px solid rgba(255,255,255,0.04); color:inherit; }
-  .chat-send { background: linear-gradient(135deg,#4f8cff,#0056b3); color:#fff; border:none; padding:10px 12px; border-radius:8px; cursor:pointer; }
-  .hidden { display:none; }
-  /* small animations */
-  .chat-panel.enter { transform: translateY(0); opacity:1; }
-  .chat-panel.leave { transform: translateY(10px); opacity:0; }
-  .muted { color: rgba(0,0,0,0.45); font-size:12px; }
-  body.dark .muted { color: rgba(255,255,255,0.45); }
+/* -------------------------
+   Chat Widget
+------------------------- */
+.chat-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#4f8cff,#0056b3);
+  color: white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 10px 30px rgba(79,140,255,0.25);
+  cursor: pointer;
+  z-index: 9999;
+  border: none;
+}
+
+.chat-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  width: 360px;
+  max-height: 68vh;
+  background: rgba(255,255,255,0.98);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  transform: translateY(10px);
+  transition: transform .18s ease, opacity .18s ease;
+}
+body.dark-mode .chat-panel {
+  background: rgba(20,22,26,0.96);
+  color: #eaeef8;
+}
+
+.chat-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px; border-bottom:1px solid rgba(0,0,0,0.06);
+  background: linear-gradient(90deg, rgba(79,140,255,0.06), transparent);
+}
+body.dark-mode .chat-header {
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.chat-header h4 { margin:0; font-family: 'Poppins', sans-serif; color:#154bff; font-size:15px; }
+body.dark-mode .chat-header h4 { color: #79aefc; }
+.chat-header .close-btn { background:transparent; border:none; cursor:pointer; font-size:16px; }
+
+.chat-body { padding:12px; overflow:auto; flex:1; display:flex; flex-direction:column; gap:8px; }
+.msg { max-width: 80%; padding:10px 12px; border-radius:10px; font-size:14px; line-height:1.45; }
+.msg.user { align-self: flex-end; background: linear-gradient(135deg,#e9f0ff,#cfe0ff); color:#04204a; border-bottom-right-radius:4px; }
+body.dark-mode .msg.user { background: linear-gradient(135deg,#2b3442,#232831); color:#dfe9ff; }
+.msg.bot { align-self:flex-start; background: #f6f8fb; color:#222; border-bottom-left-radius:4px; }
+body.dark-mode .msg.bot { background: rgba(255,255,255,0.03); color:#dbe8ff; }
+
+.chat-suggestions { display:flex; gap:8px; flex-wrap:wrap; padding:8px 12px; border-top:1px dashed rgba(0,0,0,0.04); }
+body.dark-mode .chat-suggestions { border-top:1px dashed rgba(255,255,255,0.02); }
+.chip { background: rgba(0,0,0,0.06); padding:6px 10px; border-radius:999px; font-size:13px; cursor:pointer; }
+body.dark-mode .chip { background: rgba(255,255,255,0.04); }
+
+.chat-input-area { display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,0,0,0.04); }
+body.dark-mode .chat-input-area { border-top:1px solid rgba(255,255,255,0.03); }
+.chat-input { flex:1; padding:10px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:transparent; font-size:14px; }
+body.dark-mode .chat-input { border:1px solid rgba(255,255,255,0.04); color:inherit; }
+.chat-send { background: linear-gradient(135deg,#4f8cff,#0056b3); color:#fff; border:none; padding:10px 12px; border-radius:8px; cursor:pointer; }
+
+.hidden { display:none; }
+.chat-panel.enter { transform: translateY(0); opacity:1; }
+.chat-panel.leave { transform: translateY(10px); opacity:0; }
+.muted { color: rgba(0,0,0,0.45); font-size:12px; }
+body.dark-mode .muted { color: rgba(255,255,255,0.45); }
+
 </style>
 
-<script> 
-const fixedAnswers = [
-  { keys: ['how to download', 'download cv', 'export pdf'], answer: 'To download your CV click "Download PDF". If you want better print quality, ensure you use the light theme or enable high-resolution export in settings.' },
-  { keys: ['how to edit', 'edit cv', 'make changes'], answer: 'Open the editor on the left, make changes in the fields (or upload a new profile image), then click "Save" to keep changes.' },
-  { keys: ['dark mode', 'theme', 'toggle theme'], answer: 'Use the Theme button in the editor (or top bar) to toggle dark/light theme. The app remembers your preference.' },
-  { keys: ['profile image', 'upload picture', 'change photo'], answer: 'Click the "Profile image" upload field in the editor panel and select a JPG/PNG file. The image will be previewed and saved.' },
-  { keys: ['multiple pages', 'page break', 'top margin'], answer: 'If the PDF shows extra top space, make sure the document container has no top margin and @page margins are small. We already set minimal margins for exports.' },
-  { keys: ['reset', 'clear', 'delete'], answer: 'Click the "Clear" button in the editor to remove saved CV content from your browser (localStorage).' },
-  { keys: ['help', 'support'], answer: 'I can answer common questions about using this CV builder. Try clicking one of the suggested questions or type your question.' }
-];
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // --- elements (safe queries) ---
+  const chatToggle = document.getElementById('chatToggle');
+  const chatPanel  = document.getElementById('chatPanel');
+  const chatClose  = document.getElementById('chatClose');
+  const chatBody   = document.getElementById('chatBody');
+  const suggestions= document.getElementById('suggestions');
+  const chatInput  = document.getElementById('chatInput');
+  const chatSend   = document.getElementById('chatSend');
 
-// suggested questions shown as chips
-const suggestionsList = [
-  'How to download?',
-  'How to edit my CV?',
-  'How to change profile image?',
-  'Dark mode / Theme',
-  'Why top margin in PDF?'
-];
+  // If chatBody missing, create a minimal no-op environment
+  if (!chatBody) {
+    console.warn('Chat: chatBody element missing — chat disabled.');
+    return;
+  }
 
-const chatToggle = document.getElementById('chatToggle');
-const chatPanel = document.getElementById('chatPanel');
-const chatClose = document.getElementById('chatClose');
-const chatBody = document.getElementById('chatBody');
-const suggestions = document.getElementById('suggestions');
-const chatInput = document.getElementById('chatInput');
-const chatSend = document.getElementById('chatSend');
+  // --- rule-based FAQ data ---
+  const fixedAnswers = [
+    { keys: ['how to download', 'download cv', 'export pdf'], answer: 'To download your CV click "Download PDF". If you want better print quality, ensure you use the light theme or enable high-resolution export in settings.' },
+    { keys: ['how to edit', 'edit cv', 'make changes'], answer: 'Open the editor on the left, make changes in the fields (or upload a new profile image), then click "Save" to keep changes.' },
+    { keys: ['dark mode', 'theme', 'toggle theme'], answer: 'Use the Theme button in the editor (or top bar) to toggle dark/light theme. The app remembers your preference.' },
+    { keys: ['profile image', 'upload picture', 'change photo'], answer: 'Click the "Profile image" upload field in the editor panel and select a JPG/PNG file. The image will be previewed and saved.' },
+    { keys: ['multiple pages', 'page break', 'top margin'], answer: 'If the PDF shows extra top space, make sure the document container has no top margin and @page margins are small. We already set minimal margins for exports.' },
+    { keys: ['reset', 'clear', 'delete'], answer: 'Click the "Clear" button in the editor to remove saved CV content from your browser (localStorage).' },
+    { keys: ['help', 'support'], answer: 'I can answer common questions about using this CV builder. Try clicking one of the suggested questions or type your question.' }
+  ];
 
-let chatOpen = false;
+  const suggestionsList = [
+    'How to download?',
+    'How to edit my CV?',
+    'How to change profile image?',
+    'Dark mode / Theme',
+    'Why top margin in PDF?'
+  ];
 
-/* Utilities */
-function saveChatState() {
-  const msgs = Array.from(chatBody.querySelectorAll('.msg')).map(el => ({role: el.dataset.role, text: el.textContent}));
-  localStorage.setItem('cvChatHistory', JSON.stringify(msgs));
-}
-function loadChatState() {
-  const raw = localStorage.getItem('cvChatHistory');
-  if (!raw) return;
-  try {
-    const msgs = JSON.parse(raw);
-    msgs.forEach(m => appendMessage(m.role, m.text, false));
-  } catch(e) { console.warn('chat history corrupted') }
-}
-function appendMessage(role, text, save=true) {
-  const div = document.createElement('div');
-  div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
-  div.dataset.role = role;
-  div.textContent = text;
-  chatBody.appendChild(div);
-  chatBody.scrollTop = chatBody.scrollHeight;
-  if (save) saveChatState();
-}
+  // --- utilities ---
+  function normalizeText(str) {
+    return (str || '')
+      .toString()
+      .toLowerCase()
+      .replace(/[^\w\s]/g, '')   // remove punctuation
+      .replace(/\s+/g, ' ')     // collapse spaces
+      .trim();
+  }
 
-/* Matching logic: exact phrase -> keyword -> fallback */
-function findFixedAnswer(input) {
-  input = (input || '').toLowerCase().trim();
-  if (!input) return null;
-
-  // exact key match (if user typed identical suggestion)
-  for (const item of fixedAnswers) {
-    for (const k of item.keys) {
-      if (input === k) return item.answer;Get 
+  function saveChatState() {
+    try {
+      const msgs = Array.from(chatBody.querySelectorAll('.msg')).map(el => ({role: el.dataset.role, text: el.textContent}));
+      localStorage.setItem('cvChatHistory', JSON.stringify(msgs));
+    } catch (e) {
+      console.warn('Chat save failed', e);
     }
   }
 
-  // keyword inclusion match
-  for (const item of fixedAnswers) {
-    for (const k of item.keys) {
-      if (input.includes(k)) return item.answer;
+  function loadChatState() {
+    try {
+      const raw = localStorage.getItem('cvChatHistory');
+      if (!raw) return;
+      const msgs = JSON.parse(raw);
+      msgs.forEach(m => appendMessage(m.role, m.text, false));
+    } catch (e) {
+      console.warn('chat history corrupted or invalid JSON');
     }
   }
 
-  // fuzzy: look for any important token match
-  const tokens = input.split(/\W+/).filter(Boolean);
-  for (const item of fixedAnswers) {
-    for (const k of item.keys) {
-      const kTokens = k.split(/\W+/).filter(Boolean);
-      if (kTokens.some(t => tokens.includes(t))) return item.answer;
+  // appends message and optionally saves; also attaches click-to-resend for user messages
+  function appendMessage(role, text, save=true) {
+    const div = document.createElement('div');
+    div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+    div.dataset.role = role;
+    div.textContent = text;
+    // allow clicking a user message to resend it
+    if (role === 'user') {
+      div.title = 'Click to resend this message';
+      div.style.cursor = 'pointer';
+      div.addEventListener('click', () => {
+        // re-run the logic as if the user sent it again
+        handleSend(text);
+      });
+    }
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    if (save) saveChatState();
+  }
+
+  // robust matching: normalize both sides, check exact -> includes -> token match
+  function findFixedAnswer(input) {
+    if (!input) return null;
+    const normInput = normalizeText(input);
+
+    // exact normalized equality
+    for (const item of fixedAnswers) {
+      for (const k of item.keys) {
+        if (normalizeText(k) === normInput) return item.answer;
+      }
+    }
+
+    // inclusion (normalized)
+    for (const item of fixedAnswers) {
+      for (const k of item.keys) {
+        if (normInput.includes(normalizeText(k))) return item.answer;
+      }
+    }
+
+    // token intersection (fuzzy)
+    const tokens = new Set(normInput.split(/\s+/).filter(Boolean));
+    for (const item of fixedAnswers) {
+      for (const k of item.keys) {
+        const kTokens = normalizeText(k).split(/\s+/).filter(Boolean);
+        if (kTokens.some(t => tokens.has(t))) return item.answer;
+      }
+    }
+
+    return null;
+  }
+
+  // --- chat logic ---
+  function handleSend(text) {
+    const userText = (text || '').toString().trim();
+    if (!userText) return;
+    appendMessage('user', userText);
+
+    const ans = findFixedAnswer(userText);
+    if (ans) {
+      // small simulated think delay
+      setTimeout(() => appendMessage('bot', ans), 300 + Math.random() * 400);
+    } else {
+      setTimeout(() => appendMessage('bot', "Sorry, I don't have an automated answer for that. Try one of the suggested questions or contact support."), 350);
     }
   }
 
-  return null;
-}
-
-/* When user sends a message */
-function handleSend(text) {
-  const userText = text.trim();
-  if (!userText) return;
-  appendMessage('user', userText);
-
-  // find answer
-  const ans = findFixedAnswer(userText);
-  if (ans) {
-    setTimeout(()=> appendMessage('bot', ans), 300 + Math.random()*400);
-  } else {
-    // fallback: polite guide + suggestions
-    setTimeout(()=> appendMessage('bot', "Sorry, I don't have an automated answer for that. Try one of the suggested questions or contact support."), 400);
-  }
-}
-
-/* Render suggestion chips */
-function renderSuggestions() {
-  suggestions.innerHTML = '';
-  suggestionsList.forEach(s => {
-    const el = document.createElement('button');
-    el.type = 'button';
-    el.className = 'chip';
-    el.textContent = s;
-    el.addEventListener('click', () => {
-      chatInput.value = s;
-      handleSend(s);
+  // --- render suggestion chips if suggestions element exists ---
+  function renderSuggestions() {
+    if (!suggestions) return;
+    suggestions.innerHTML = '';
+    suggestionsList.forEach(s => {
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'chip';
+      el.textContent = s;
+      el.addEventListener('click', () => {
+        // send suggestion text as message
+        handleSend(s);
+        // set input for visual feedback
+        if (chatInput) {
+          chatInput.value = s;
+          chatInput.focus();
+        }
+      });
+      suggestions.appendChild(el);
     });
-    suggestions.appendChild(el);
-  });
-}
-
-/* Toggle open/close */
-function openChat() {
-  chatPanel.classList.remove('hidden');
-  chatPanel.classList.add('enter');
-  chatOpen = true;
-  chatInput.focus();
-}
-function closeChat() {
-  chatPanel.classList.remove('enter');
-  chatPanel.classList.add('leave');
-  setTimeout(()=> {
-    chatPanel.classList.add('hidden');
-    chatPanel.classList.remove('leave');
-  }, 180);
-  chatOpen = false;
-}
-
-/* Events */
-chatToggle.addEventListener('click', ()=> {
-  if (chatOpen) { closeChat(); } else { openChat(); }
-});
-chatClose.addEventListener('click', closeChat);
-chatSend.addEventListener('click', ()=> { handleSend(chatInput.value); chatInput.value=''; chatInput.focus(); });
-chatInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    handleSend(chatInput.value);
-    chatInput.value = '';
   }
+
+  // --- chat panel open/close helper (if those elements exist) ---
+  let chatOpen = false;
+  function openChat() {
+    if (!chatPanel) return;
+    chatPanel.classList.remove('hidden');
+    chatPanel.classList.add('enter');
+    chatOpen = true;
+    if (chatInput) chatInput.focus();
+  }
+  function closeChat() {
+    if (!chatPanel) return;
+    chatPanel.classList.remove('enter');
+    chatPanel.classList.add('leave');
+    setTimeout(() => {
+      chatPanel.classList.add('hidden');
+      chatPanel.classList.remove('leave');
+    }, 180);
+    chatOpen = false;
+  }
+
+  // --- wire up UI events (only if elements present) ---
+  if (chatToggle) {
+    chatToggle.addEventListener('click', () => {
+      if (chatOpen) closeChat(); else openChat();
+    });
+  }
+
+  if (chatClose) chatClose.addEventListener('click', closeChat);
+
+  if (chatSend) {
+    chatSend.addEventListener('click', () => {
+      if (!chatInput) return;
+      handleSend(chatInput.value);
+      chatInput.value = '';
+      chatInput.focus();
+    });
+  }
+
+  if (chatInput) {
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend(chatInput.value);
+        chatInput.value = '';
+      }
+    });
+  }
+
+  // Allow clicking bot messages to copy into input for quick editing (optional)
+  chatBody.addEventListener('click', (ev) => {
+    const target = ev.target;
+    if (!target.classList.contains('msg')) return;
+    // if bot message clicked, copy to input for quick edit
+    if (target.dataset.role === 'bot' && chatInput) {
+      chatInput.value = target.textContent;
+      chatInput.focus();
+    }
+  });
+
+  // --- init render & load history ---
+  renderSuggestions();
+  loadChatState();
+
+  // expose small API
+  window.CVChat = {
+    addFaq: (keys, answer) => fixedAnswers.push({ keys: Array.isArray(keys) ? keys : [keys], answer }),
+    clearHistory: () => { localStorage.removeItem('cvChatHistory'); chatBody.innerHTML = ''; }
+  };
 });
-
-/* init */
-renderSuggestions();
-loadChatState();
-
-/* EXPOSE a small API so developer can update fixedAnswers dynamically if needed */
-window.CVChat = {
-  addFaq: (keys, answer) => fixedAnswers.push({keys:Array.isArray(keys)?keys:[keys], answer}),
-  clearHistory: () => { localStorage.removeItem('cvChatHistory'); chatBody.innerHTML=''; }
-};
 </script>
-<!-- END: Simple AI Chatbot (rule-based) -->
